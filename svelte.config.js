@@ -3,7 +3,19 @@ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 const config = {
 	preprocess: vitePreprocess(),
-	kit: { adapter: adapter() }
+	kit: {
+		csp: {
+			directives: {
+				'default-src': ["'self'"],
+				'script-src': ["'self'"],
+				'style-src': ["'self'", 'https://fonts.googleapis.com'],
+				'img-src': ["'self'", 'data:'],
+				'font-src': ["'self'", 'https://fonts.gstatic.com'],
+				'connect-src': ["'self'"]
+			}
+		},
+		adapter: adapter()
+	}
 };
 
 export default config;
