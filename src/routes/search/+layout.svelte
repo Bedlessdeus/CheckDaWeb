@@ -3,9 +3,9 @@
 
 	let { data, children } = $props();
 
-	let pattern_def = '^https:\\/\\/([a-zA-Z\\d\\-]{1,63}\\.){1,62}[a-zA-Z\\-]{1,63}$';
+	let pattern_def = '^(https?:\\/\\/)?([a-zA-Z\\d\\-]{1,63}\\.){1,62}[a-zA-Z\\-]{1,63}\\/?$';
 
-    let url = cleanURL(data.url);
+    let url = $derived(cleanURL(data.url));
 </script>
 
 <div class="box m-8 flex flex-row items-center justify-between rounded-2xl">
