@@ -7,7 +7,9 @@ import { env } from '$env/dynamic/private';
 import { createCanvas, registerFont } from 'canvas';
 import { deflateSync } from 'zlib';
 
-registerFont(env.PRIVATE_FAVICON_FONT, { family: 'FaviconF' });
+export const initFont = () => {
+	registerFont(env.PRIVATE_FAVICON_FONT, { family: 'FaviconF' });
+};
 
 export const writeUInt16LE = (buffer: Uint8Array, offset: number, value: number): void => {
 	buffer[offset] = value & 0xff;

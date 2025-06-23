@@ -5,7 +5,7 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
-		"build": "vite build && cp .\\package.json .\\build\\ && cp .\\package-lock.json .\\build\\ && cp .\\svelte.config.js .\\build\\  ",
+		"build": "vite build && cp .\\package.json .\\build\\ && cp .\\package-lock.json .\\build\\ && cp .\\svelte.config.js .\\build\\ && cp -r .\\data .\\build\\data",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
