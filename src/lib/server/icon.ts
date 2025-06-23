@@ -3,7 +3,11 @@
 Documentation: https://www.libpng.org/pub/png/spec/1.2/PNG-Chunks.html
 
 */
+import { env } from '$env/dynamic/private';
+import { createCanvas, registerFont } from 'canvas';
 import { deflateSync } from 'zlib';
+
+registerFont(env.PRIVATE_FAVICON_FONT, { family: 'FaviconF' });
 
 export const writeUInt16LE = (buffer: Uint8Array, offset: number, value: number): void => {
 	buffer[offset] = value & 0xff;
@@ -30,13 +34,13 @@ export const creatChunk = (type: string, data: Uint8Array): Uint8Array => {
 
 	chunk.set(data, 8);
 
-	const crcInput = chunk.subarray(4, 8 + chunk.length);
+	const crcInput = chunk.subarray(4, 8 + data.length);
 	const crc = CRC32.compute(crcInput);
 
-	chunk[8 + data.length] = crc & 0xff;
-	chunk[9 + data.length] = (crc >> 8) & 0xff;
-	chunk[10 + data.length] = (crc >> 16) & 0xff;
-	chunk[11 + data.length] = (crc >> 24) & 0xff;
+	chunk[8 + data.length] = (crc >>> 24) & 0xff;
+	chunk[9 + data.length] = (crc >>> 16) & 0xff;
+	chunk[10 + data.length] = (crc >>> 8) & 0xff;
+	chunk[11 + data.length] = crc & 0xff;
 
 	return chunk;
 };
@@ -95,10 +99,10 @@ export const concatArrays = (arrays: Uint8Array[]): Uint8Array => {
 	return result;
 };
 
-export const buildPNG = (pixels: Uint8Array, width: number, height: number): Uint8Array => {
+export const buildPNG = (pixels: Uint8Array, size: Size): Uint8Array => {
 	const signature = new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
-	const ihdr = creatChunk('IHDR', buildIHDR(width, height));
-	const idat = creatChunk('IDAT', buildIDAT(pixels, width, height));
+	const ihdr = creatChunk('IHDR', buildIHDR(size.width, size.height));
+	const idat = creatChunk('IDAT', buildIDAT(pixels, size.width, size.height));
 	const iend = creatChunk('IEND', new Uint8Array(0));
 	return concatArrays([signature, ihdr, idat, iend]);
 };
@@ -115,7 +119,7 @@ export const writeUInt32Leico = (buffer: Uint8Array, offset: number, value: numb
 	buffer[offset + 3] = (value >> 24) & 0xff;
 };
 
-export const buildICO = (png: Uint8Array, width: number, height: number): Uint8Array => {
+export const buildICO = (png: Uint8Array, size: Size): Uint8Array => {
 	const header = new Uint8Array(6);
 	// Reserved
 	writeUInt16Leico(header, 0, 0);
@@ -125,8 +129,8 @@ export const buildICO = (png: Uint8Array, width: number, height: number): Uint8A
 	writeUInt16Leico(header, 4, 1);
 
 	const entry = new Uint8Array(16);
-	entry[0] = width === 256 ? 0 : width;
-	entry[1] = height === 256 ? 0 : height;
+	entry[0] = size.width === 256 ? 0 : size.width;
+	entry[1] = size.height === 256 ? 0 : size.height;
 	// Color count
 	entry[2] = 0;
 	// Reserved
@@ -169,57 +173,54 @@ class CRC32 {
 	}
 }
 
-export const buildFaviconICO = (w: number, h: number, bg: RGBA) => {
-	const pixels = new Uint8Array(w * h * 4);
+export const drawLetterPixels = (
+	size: Size,
+	background: RGBA,
+	letter: string,
+	font_color: RGBA
+): Uint8Array => {
+	const canvas = createCanvas(size.width, size.height);
+	const ctx = canvas.getContext('2d');
 
-	for (let i = 0; i < pixels.length; i += 4) {
-		// Red
-		pixels[i] = bg.r;
-		// Green
-		pixels[i + 1] = bg.g;
-		// Blue
-		pixels[i + 2] = bg.b;
-		// Alpha
-		pixels[i + 3] = bg.a;
-	}
+	ctx.fillStyle = background.toString();
+	ctx.fillRect(0, 0, size.width, size.height);
 
-	const lW = 20;
-	const lH = 20;
-	const startX = Math.floor((w - lW) / 2);
-	const startY = Math.floor((h - lH) / 2);
+	ctx.fillStyle = font_color.toString();
+	ctx.textAlign = 'center';
+	ctx.textBaseline = 'middle';
+	ctx.font = `bold ${Math.floor(size.height * 0.65)}px FaviconF, sans-serif`;
+	ctx.fillText(letter, size.width / 2, size.height / 2);
 
-	for (let y = 0; y < lH; y++) {
-		for (let x = 0; x < lW; x++) {
-			if (y < lH / 2) {
-				if (x >= lW / 2 - y && x <= lW / 2 + y) {
-					const idx = (startY + y * w + startX + x) * 4;
-					pixels[idx] = 255;
-					pixels[idx + 1] = 255;
-					pixels[idx + 2] = 255;
-					pixels[idx + 3] = 255;
-				}
-			} else {
-				if (
-					y === Math.floor(lH / 2) ||
-					x === Math.floor(lW / 4) ||
-					x === Math.floor((3 * lW) / 4)
-				) {
-					const idx = (startY + y * w + startX + x) * 4;
-					pixels[idx] = 255;
-					pixels[idx + 1] = 255;
-					pixels[idx + 2] = 255;
-					pixels[idx + 3] = 255;
-				}
-			}
-		}
-	}
-    const ico = buildICO(buildPNG(pixels, w, h), w, h);
-    return ico;
+	return new Uint8Array(ctx.getImageData(0, 0, size.width, size.height).data.buffer);
 };
 
-export type RGBA = {
-	r: number;
-	g: number;
-	b: number;
-	a: number;
-};
+export const buildFaviconICO = (size: Size, background: RGBA, letter: string, font_color: RGBA) =>
+	buildICO(buildPNG(drawLetterPixels(size, background, letter, font_color), size), size);
+
+export class RGBA {
+	public r: number;
+	public g: number;
+	public b: number;
+	public a: number;
+
+	constructor(r: number, g: number, b: number, a: number) {
+		this.r = r;
+		this.g = g;
+		this.b = b;
+		this.a = a;
+	}
+
+	toString(): string {
+		return `rgba(${this.r}, ${this.g}, ${this.b}, ${this.a / 255})`;
+	}
+}
+
+export class Size {
+	public width: number;
+	public height: number;
+
+	constructor(width: number, height: number) {
+		this.width = width;
+		this.height = height;
+	}
+}
