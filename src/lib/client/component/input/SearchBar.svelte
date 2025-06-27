@@ -8,7 +8,7 @@
 
 <form class="flex w-[50%] flex-row p-4" method="GET" action="{path}?/">
 	<input
-		class="bg-secondary-dark w-[90%] border-none !rounded-r-none"
+		class="bg-secondary-dark w-[90%] !rounded-r-none border-none"
 		id="url"
 		name="url"
 		type="text"
