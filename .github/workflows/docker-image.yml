@@ -32,7 +32,7 @@ jobs:
         id: increment_version
         run: |
           npm version patch --no-git-tag-version
-          echo "NEW_VERSION=$(node -p "(require('./package.json').version")" >> $GITHUB_OUTPUT
+          echo "NEW_VERSION=$(node -p 'require("./package.json").version')" >> $GITHUB_OUTPUT
           
       - name: Commit and Push Version Changes
         run: |
