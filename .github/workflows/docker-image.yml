@@ -32,7 +32,8 @@ jobs:
         id: increment_version
         run: |
           npm version patch --no-git-tag-version
-          echo "NEW_VERSION=$(node -p 'require("./package.json").version')" >> $GITHUB_OUTPUT
+          NEW_VERSION=$(node -p 'require("./package.json").version')
+          echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_OUTPUT
           
       - name: Commit and Push Version Changes
         run: |
@@ -57,6 +58,6 @@ jobs:
           push: true
           tags: |
             bedlessdeus/checkdaweb:latest
-            bedlessdeus/checkdaweb:${{ steps.get_version.outputs.VERSION }}
+            bedlessdeus/checkdaweb:v${{ steps.get_version.outputs.VERSION }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
