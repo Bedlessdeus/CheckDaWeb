@@ -1,3 +1,7 @@
+<script>
+	import { env } from '$env/dynamic/public';
+</script>
+
 <div class="container mx-auto p-4 sm:p-8 md:p-10 lg:p-12">
 	<div
 		class="bg-secondary-light dark:bg-secondary-dark rounded-lg p-6 shadow-lg sm:p-8 md:p-10 dark:shadow-xl"
@@ -9,9 +13,9 @@
 		<p class="mb-4 !text-gray-700 dark:!text-gray-300">Standing: June 2025</p>
 		<div class="prose max-w-none">
 			<p class="mb-4 text-gray-700 dark:text-gray-300">
-				Welcome to CheckDaWeb! These Terms of Service ("Terms") govern your use of our website and
-				services (the "Service"). By accessing or using the Service, you agree to be bound by these
-				Terms.
+				Welcome to {env.PUBLIC_COMPANY_NAME}! These Terms of Service ("Terms") govern your use of
+				our website and services (the "Service"). By accessing or using the Service, you agree to be
+				bound by these Terms.
 			</p>
 
 			<h2 class="mt-8 mb-4 text-2xl font-semibold text-gray-700 dark:text-gray-200">
@@ -40,14 +44,14 @@
 			</p>
 			<ul class="mb-4 list-inside list-disc text-gray-700 dark:text-gray-300">
 				<li>
-					Any **abuse of our systems**, including but not limited to, excessive requests,
-					unauthorized access attempts, or any activity that disrupts or interferes with the
-					integrity or performance of the Service.
+					Any <strong>abuse of our systems</strong>, including but not limited to, excessive
+					requests, unauthorized access attempts, or any activity that disrupts or interferes with
+					the integrity or performance of the Service.
 				</li>
 				<li>Distributing malware or other harmful code.</li>
 				<li>
-					Engaging in any activity that could damage, disable, overburden, or impair any CheckDaWeb
-					server, or the network(s) connected to any CheckDaWeb server.
+					Engaging in any activity that could damage, disable, overburden, or impair any {env.PUBLIC_COMPANY_NAME}
+					server, or the network(s) connected to any {env.PUBLIC_COMPANY_NAME} server.
 				</li>
 			</ul>
 			<p class="mb-4 font-bold text-red-600 dark:text-red-400">
@@ -61,9 +65,9 @@
 				4. Recommendation: Host Your Own!
 			</h2>
 			<p class="mb-4 text-gray-700 dark:text-gray-300">
-				We encourage and recommend users to **host their own instances** of CheckDaWeb. Self-hosting
-				provides you with full control over your data and infrastructure, aligning with principles
-				of privacy and decentralization.
+				We encourage and recommend users to <strong>host their own instances</strong> of {env.PUBLIC_COMPANY_NAME}.
+				Self-hosting provides you with full control over your data and infrastructure, aligning with
+				principles of privacy and decentralization.
 			</p>
 
 			<h2 class="mt-8 mb-4 text-2xl font-semibold text-gray-700 dark:text-gray-200">
@@ -81,11 +85,11 @@
 				6. Limitation of Liability
 			</h2>
 			<p class="mb-4 text-gray-700 dark:text-gray-300">
-				In no event shall CheckDaWeb or its suppliers be liable for any damages (including, without
-				limitation, damages for loss of data or profit, or due to business interruption) arising out
-				of the use or inability to use the materials on CheckDaWeb's website, even if CheckDaWeb or
-				a CheckDaWeb authorized representative has been notified orally or in writing of the
-				possibility of such damage.
+				In no event shall {env.PUBLIC_COMPANY_NAME} or its suppliers be liable for any damages (including,
+				without limitation, damages for loss of data or profit, or due to business interruption) arising
+				out of the use or inability to use the materials on {env.PUBLIC_COMPANY_NAME}'s website,
+				even if {env.PUBLIC_COMPANY_NAME} or a {env.PUBLIC_COMPANY_NAME} authorized representative has
+				been notified orally or in writing of the possibility of such damage.
 			</p>
 
 			<h2 class="mt-8 mb-4 text-2xl font-semibold text-gray-700 dark:text-gray-200">
@@ -101,7 +105,7 @@
 				8. Governing Law
 			</h2>
 			<p class="mb-4 text-gray-700 dark:text-gray-300">
-				These Terms shall be governed and construed in accordance with the laws of Germany, without
+				These Terms shall be governed and construed in accordance with the laws of {env.PUBLIC_COMPANY_REGION}, without
 				regard to its conflict of law provisions.
 			</p>
 
@@ -110,9 +114,9 @@
 			</h2>
 			<p class="mb-4 text-gray-700 dark:text-gray-300">
 				If you have any questions about these Terms, please contact us at: <a
-					href="mailto:bedlesssgod@gmail.com"
+					href="mailto:{env.PUBLIC_COMPANY_EMAIL}"
 					class="text-blue-600 hover:underline dark:text-blue-400 dark:hover:underline"
-					>bedlesssgod@gmail.com</a
+					>{env.PUBLIC_COMPANY_EMAIL}</a
 				>.
 			</p>
 		</div>

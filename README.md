@@ -83,6 +83,14 @@ CheckDaWeb uses several environment variables for configuration, especially impo
 
 * `PRIVATE_SELF_URL`: **REQUIRED**. The base URL of your CheckDaWeb instance, used for Content Security Policy (CSP) and other internal references (e.g., `http://your-domain.com` or `http://localhost:3000`).
 
+* `PUBLIC_COMPANY_NAME`: **REQUIRED**. The Company name used in the GDPR / TOS (e.g. `Your Epic Company`)
+
+* `PUBLIC_COMPANY_EMAIL`: **REQUIRED**. The Company email used in the GDPR / TOS (e.g. `admin@yourcompany.com`)
+
+* `PUBLIC_COMPANY_ADDRESS`: **REQUIRED**. The Company address used in the GDPR / TOS (e.g. `Private By Design LLC`)
+
+* `PUBLIC_COMPANY_REGION`: **REQUIRED**. The Region used in the GDPR / TOS (eg. `Germany`, `United States Of America`, `Spain`, `Portugal` )
+
 Refer to the [Docker Page](https://hub.docker.com/r/bedlessdeus/checkdaweb) for examples on how to set these variables when running your container.
 
 ## 🤝 Contributing

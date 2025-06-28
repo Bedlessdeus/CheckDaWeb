@@ -1,3 +1,7 @@
+<script>
+	import { env } from '$env/dynamic/public';
+</script>
+
 <div class="container mx-auto p-4 sm:p-8 md:p-10 lg:p-12">
 	<div
 		class="bg-secondary-light dark:bg-secondary-dark rounded-lg p-6 shadow-lg sm:p-8 md:p-10 dark:shadow-xl"
@@ -10,8 +14,8 @@
 
 		<div class="prose max-w-none">
 			<p class="mb-4 text-gray-700 dark:text-gray-300">
-				This Privacy Policy describes how CheckDaWeb ("we," "us," or "our") collects, uses, and
-				discloses your personal information when you use our website and services (the "Service").
+				This Privacy Policy describes how {env.PUBLIC_COMPANY_NAME} ("we," "us," or "our") collects,
+				uses, and discloses your personal information when you use our website and services (the "Service").
 			</p>
 			<p class="mb-4 text-gray-700 dark:text-gray-300">
 				We are committed to protecting your privacy and handling your data in an open and
@@ -24,12 +28,12 @@
 			</h2>
 			<p class="mb-4 text-gray-700 dark:text-gray-300">
 				The data controller responsible for your personal data is: <br />
-				Private By Design LLC <br />
-				Private By Design <br />
+				{env.PUBLIC_COMPANY_NAME}<br />
+				{env.PUBLIC_COMPANY_ADDRESS} <br />
 				<a
-					href="mailto:bedlesssgod@gmail.com"
+					href="mailto:{env.PUBLIC_COMPANY_EMAIL}"
 					class="text-blue-600 hover:underline dark:text-blue-400 dark:hover:underline"
-					>bedlesssgod@gmail.com</a
+					>{env.PUBLIC_COMPANY_EMAIL}</a
 				>
 			</p>
 
@@ -37,16 +41,18 @@
 				2. Information We Collect
 			</h2>
 			<p class="mb-4 text-gray-700 dark:text-gray-300">
-				**Strict No-Log Policy:** For our instance of CheckDaWeb, we operate with a strict **no-log
-				policy** as far as we control. This means we do not intentionally collect, store, or process
-				any personal identifiable information or usage logs from your interactions with our Service.
+				<strong>Strict No-Log Policy:</strong> For our instance of {env.PUBLIC_COMPANY_NAME}, we
+				operate with a strict <strong>no-log policy</strong> as far as we control. This means we do not
+				intentionally collect, store, or process any personal identifiable information or usage logs
+				from your interactions with our Service.
 			</p>
 			<p class="mb-4 text-gray-700 dark:text-gray-300">
 				While we implement this policy for our direct operations, please be aware that we cannot
 				control what your Internet Service Provider (ISP) or our datacenter may log.
 			</p>
 			<p class="mb-4 text-gray-700 dark:text-gray-300">
-				Our traffic is **end-to-end encrypted with HTTPS** to help protect your data in transit.
+				Our traffic is <strong>end-to-end encrypted with HTTPS</strong> to help protect your data in
+				transit.
 			</p>
 
 			<h2 class="mt-8 mb-4 text-2xl font-semibold text-gray-700 dark:text-gray-200">
@@ -75,37 +81,38 @@
 			</p>
 			<ul class="mb-4 list-inside list-disc space-y-2 text-gray-700 dark:text-gray-300">
 				<li>
-					**The right to access:** You have the right to request copies of your personal data.
+					<strong>The right to access:</strong> You have the right to request copies of your personal
+					data.
 				</li>
 				<li>
-					**The right to rectification:** You have the right to request that we correct any
-					information you believe is inaccurate. You also have the right to request that we complete
+					<strong>The right to rectification:</strong> You have the right to request that we correct
+					any information you believe is inaccurate. You also have the right to request that we complete
 					the information you believe is incomplete.
 				</li>
 				<li>
-					**The right to erasure:** You have the right to request that we erase your personal data,
-					under certain conditions.
+					<strong>The right to erasure:</strong> You have the right to request that we erase your personal
+					data, under certain conditions.
 				</li>
 				<li>
-					**The right to restrict processing:** You have the right to request that we restrict the
-					processing of your personal data, under certain conditions.
+					<strong>The right to restrict processing:</strong> You have the right to request that we restrict
+					the processing of your personal data, under certain conditions.
 				</li>
 				<li>
-					**The right to object to processing:** You have the right to object to our processing of
-					your personal data, under certain conditions.
+					<strong>The right to object to processing:</strong> You have the right to object to our processing
+					of your personal data, under certain conditions.
 				</li>
 				<li>
-					**The right to data portability:** You have the right to request that we transfer the data
-					that we have collected to another organization, or directly to you, under certain
+					<strong>The right to data portability:</strong> You have the right to request that we transfer
+					the data that we have collected to another organization, or directly to you, under certain
 					conditions.
 				</li>
 			</ul>
 			<p class="mb-4 text-gray-700 dark:text-gray-300">
 				If you make a request, we have one month to respond to you. If you would like to exercise
 				any of these rights, please contact us at: <a
-					href="mailto:bedlesssgod@gmail.com"
+					href="mailto:{env.PUBLIC_COMPANY_EMAIL}"
 					class="text-blue-600 hover:underline dark:text-blue-400 dark:hover:underline"
-					>bedlesssgod@gmail.com</a
+					>{env.PUBLIC_COMPANY_EMAIL}</a
 				>.
 			</p>
 
@@ -127,9 +134,9 @@
 			<ul class="mb-4 list-inside list-disc text-gray-700 dark:text-gray-300">
 				<li>
 					By email: <a
-						href="mailto:bedlesssgod@gmail.com"
+						href="mailto:{env.PUBLIC_COMPANY_EMAIL}"
 						class="text-blue-600 hover:underline dark:text-blue-400 dark:hover:underline"
-						>bedlesssgod@gmail.com</a
+						>{env.PUBLIC_COMPANY_EMAIL}</a
 					>
 				</li>
 			</ul>
