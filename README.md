@@ -51,7 +51,10 @@ CheckDaWeb is designed to be easy to set up and use. The primary recommended met
 
 ### Installation via Docker
 
-A dedicated Docker page will be provided soon with detailed instructions for pulling and running the Docker image. Please check back here for the link to the Docker image and its setup guide.
+Detailed instructions for pulling and running the Docker image, including configuration for environment variables, can be found on the dedicated [Docker Page](https://hub.docker.com/r/bedlessdeus/checkdaweb).
+
+You can find the Docker image on Docker Hub: bedlessdeus/checkdaweb.
+Images are tagged as `bedlessdeus/checkdaweb:latest` and `bedlessdeus/checkdaweb:${version}` (e.g., v0.0.1).
 
 Once the Docker image is running, you can access the CheckDaWeb web interface through your browser.
 
@@ -68,6 +71,19 @@ When using the public instances, please be aware that your usage is subject to t
 
 * **Terms of Service:** [/tos](https://checkdaweb.shardq001.bedless.dev/tos)
 * **GDPR / Privacy Policy:** [/gdpr](https://checkdaweb.shardq001.bedless.dev/gdpr)
+
+## ⚙️ Environment Variables
+CheckDaWeb uses several environment variables for configuration, especially important for self-hosted instances. These variables should be set when running the Docker container:
+
+* `PRIVATE_FAVICON_FONT`: **REQUIRED**. Path to the TrueType Font (`.ttf`) file used by the favicon generator within the container. For example: `/checkdaweb/data/favicon_gen.ttf`. **You must ensure this font file is mounted into the container at the specified path.**
+
+* `PRIVATE_FAVICON_CACHE_TIME`: **REQUIRED**. Cache time in seconds for favicon generation (e.g., `86400` for 1 day).
+
+* `PRIVATE_FAVICON_COLOR_OFFSET`: **REQUIRED**. Color offset value (integer) for the favicon generation.
+
+* `PRIVATE_SELF_URL`: **REQUIRED**. The base URL of your CheckDaWeb instance, used for Content Security Policy (CSP) and other internal references (e.g., `http://your-domain.com` or `http://localhost:3000`).
+
+Refer to the [Docker Page](https://hub.docker.com/r/bedlessdeus/checkdaweb) for examples on how to set these variables when running your container.
 
 ## 🤝 Contributing
 
@@ -91,4 +107,4 @@ For full transparency regarding the use of AI in this project:
 
 ## 📄 License
 
-This project is licensed under the [MIT License](https://www.google.com/search?q=LICENSE).
+This project is licensed under the [MIT License](/LICENSE).

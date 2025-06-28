@@ -13,7 +13,8 @@ export const handle: Handle = async ({ event, resolve }) => {
 		'Content-Security-Policy',
 		[
 			`default-src 'self' ${env.PRIVATE_SELF_URL};`,
-			`script-src 'self' ${env.PRIVATE_SELF_URL};`,
+			// TODO: Find a way to generate hashes or nonces for inline scripts
+			`script-src 'self' 'unsafe-inline' ${env.PRIVATE_SELF_URL};`,
 			`style-src 'self' 'unsafe-inline' https://fonts.googleapis.com ${env.PRIVATE_SELF_URL};`,
 			`img-src 'self' data: blob: ${env.PRIVATE_SELF_URL};`,
 			`font-src 'self' https://fonts.gstatic.com ${env.PRIVATE_SELF_URL};`,
