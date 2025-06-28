@@ -5,7 +5,7 @@ on:
       - 'main'
 
 permissions:
-  contents: read
+  contents: write
   packages: write
   id-token: write
 
@@ -15,15 +15,30 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Configure Git
+        run: |
+          git config user.name "VIA BOT"
+          git config user.email "actions@github.com"
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '24'
-
-      - name: Get package version
-        id: get_version
-        run: echo "VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+          
+      - name: Increment Patch Version
+        id: increment_version
+        run: |
+          npm version patch --no-git-tag-version
+          echo "NEW_VERSION=$(node -p "(require('./package.json').version")" >> $GITHUB_OUTPUT
+          
+      - name: Commit and Push Version Changes
+        run: |
+          git add package.json package-lock.json
+          git commit -m "chore: Bump version to ${{ steps.increment_version.outputs.NEW_VERSION }} [skip ci]" || true
+          git push
         
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
