@@ -1,6 +1,7 @@
-import { env } from '$env/dynamic/private';
 import { initFont } from '$lib/server/icon';
 import type { Handle, ServerInit } from '@sveltejs/kit';
+import {version} from '../package.json';
+import { checkDockerHubVersion } from '$lib/server/util';
 
 export const handle: Handle = async ({ event, resolve }) => {
 	const response = await resolve(event, {
@@ -12,6 +13,25 @@ export const handle: Handle = async ({ event, resolve }) => {
 	response.headers.set(
 		'Content-Security-Policy',
 		[
+			`default-src 'self'`,
+			// TODO: Find a way to generate hashes or nonces for inline scripts
+			`script-src 'self' 'unsafe-inline';`,
+			`style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;`,
+			`img-src 'self' data: blob:;`,
+			`font-src 'self' https://fonts.gstatic.com;`,
+			`connect-src 'self';`
+		].join(' ')
+	);
+	return response;
+};
+
+export const init: ServerInit = async () => {
+	console.log(`🛠️   Running: CheckDaWeb\n${await checkDockerHubVersion()}`);
+	initFont();
+};
+
+/*
+[
 			`default-src 'self' ${env.PRIVATE_SELF_URL};`,
 			// TODO: Find a way to generate hashes or nonces for inline scripts
 			`script-src 'self' 'unsafe-inline' ${env.PRIVATE_SELF_URL};`,
@@ -20,10 +40,4 @@ export const handle: Handle = async ({ event, resolve }) => {
 			`font-src 'self' https://fonts.gstatic.com ${env.PRIVATE_SELF_URL};`,
 			`connect-src 'self' ${env.PRIVATE_SELF_URL};`
 		].join(' ')
-	);
-	return response;
-};
-
-export const init: ServerInit = () => {
-	initFont();
-};
+*/
