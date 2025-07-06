@@ -1,6 +1,5 @@
 import { initFont } from '$lib/server/icon';
 import type { Handle, ServerInit } from '@sveltejs/kit';
-import {version} from '../package.json';
 import { checkDockerHubVersion } from '$lib/server/util';
 
 export const handle: Handle = async ({ event, resolve }) => {
@@ -13,7 +12,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	response.headers.set(
 		'Content-Security-Policy',
 		[
-			`default-src 'self'`,
+			`default-src 'self';`,
 			// TODO: Find a way to generate hashes or nonces for inline scripts
 			`script-src 'self' 'unsafe-inline';`,
 			`style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;`,
@@ -26,7 +25,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 };
 
 export const init: ServerInit = async () => {
-	console.log(`🛠️   Running: CheckDaWeb\n${await checkDockerHubVersion()}`);
+	console.log(`🛠️  Running: CheckDaWeb\n${await checkDockerHubVersion()}`);
 	initFont();
 };
 
