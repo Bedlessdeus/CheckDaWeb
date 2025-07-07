@@ -3,6 +3,10 @@ import type { Handle, ServerInit } from '@sveltejs/kit';
 import { checkDockerHubVersion } from '$lib/server/util';
 
 export const handle: Handle = async ({ event, resolve }) => {
+	const nonce = crypto.randomUUID();
+
+	event.locals.nonce = nonce;
+
 	const response = await resolve(event, {
 		filterSerializedResponseHeaders(name, value) {
 			return name === 'Content-Security-Policy' || name === 'X-Frame-Options';

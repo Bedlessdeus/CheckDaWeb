@@ -1,12 +1,8 @@
 <script lang="ts">
-	import SearchIcon from '$lib/client/component/icon/SearchIcon.svelte';
 	import SearchBar from '$lib/client/component/input/SearchBar.svelte';
 	import { cleanURL } from '$lib/client/util.js';
-	import { onMount } from 'svelte';
 
 	let { data, children } = $props();
-
-	let pattern_def = '^(https?:\\/\\/)?([a-zA-Z\\d\\-]{1,63}\\.){1,62}[a-zA-Z\\-]{1,63}\\/?$';
 
 	let url = $derived(cleanURL(data.url));
 	let normUrl = $derived(data.url);
@@ -27,8 +23,10 @@
 </script>
 
 <div class="box m-8 flex flex-row items-center justify-between rounded-2xl">
-	<h1 class="pt-4 pl-4 text-center !text-6xl"><a href="/" class="!text-logo hover:!text-primary-cont">CheckDaWeb</a></h1>
-	<SearchBar url={normUrl} path="search"/>
+	<h1 class="pt-4 pl-4 text-center !text-6xl">
+		<a href="/" class="!text-logo hover:!text-primary-cont">CheckDaWeb</a>
+	</h1>
+	<SearchBar url={normUrl} path="search" />
 	<div class="flex flex-row">
 		<img class="h-[64px] w-[64px] rounded-[10px]" alt="Nothing here" src={favicon} />
 		<p class="h-full p-4 text-center text-[1.1rem]">{url}</p>

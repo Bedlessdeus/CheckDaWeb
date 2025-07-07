@@ -1,8 +1,8 @@
-<script lang="ts">
+<script lang="ts" nonce="{data.nonce}">
 	import { page } from '$app/state';
 	import '../app.css';
 
-	let { children } = $props();
+	let { data, children } = $props();
 
 	let pattern_def = '^https:\\/\\/([a-zA-Z\\d\\-]{1,63}\\.){1,62}[a-zA-Z\\-]{1,63}$';
 </script>
