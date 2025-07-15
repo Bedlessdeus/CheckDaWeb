@@ -1,56 +1,59 @@
 <script lang="ts" nonce="{data.nonce}">
 	import { page } from '$app/state';
+	import { chunkArray } from '$lib/client/util';
 	import '../app.css';
 
-	let { children } = $props();
+	let { children, data } = $props();
 
-	let pattern_def = '^https:\\/\\/([a-zA-Z\\d\\-]{1,63}\\.){1,62}[a-zA-Z\\-]{1,63}$';
+	const URL_PATTERN = '^https:\\/\\/([a-zA-Z\\d\\-]{1,63}\\.){1,62}[a-zA-Z\\-]{1,63}$';
+
+	let serviceChunks = $derived(chunkArray(data.services || [], 5));
 </script>
 
 {@render children()}
 
 {#if page.route.id === '/'}
 	<div class="flex min-h-screen flex-col items-center justify-center">
-		<form method="GET" action="search?/" class="box flex w-[50%] flex-col rounded-lg p-4">
-			<h1 class="!text-logo text-center !text-6xl">CheckDaWeb</h1>
-			<label for="url">Enter A URL</label>
+		<form
+			method="GET"
+			action="search?/"
+			class="box bg-primary-dark flex w-[50%] flex-col rounded-lg p-4"
+		>
+			<h1 class="!text-logo mb-6 text-center !text-6xl">CheckDaWeb</h1>
+
+			<label for="url" class="mb-2 font-medium">Enter A URL</label>
 			<input
-				class="bg-secondary-dark"
+				class="bg-secondary-dark mb-4"
 				id="url"
 				name="url"
 				type="text"
-				pattern={pattern_def}
+				pattern={URL_PATTERN}
 				placeholder="e.g. https://bedless.dev"
+				required
+				aria-describedby="url-help"
 			/>
 
-			<input
-				type="submit"
-				value="Check"
-				class="bg-primary-cont mt-2 cursor-pointer rounded-lg p-2 text-white"
-			/>
+			<button type="submit"> Check Website </button>
 		</form>
 
-		<div class="box mt-40 flex w-[50%] flex-col rounded-lg p-4">
-			<p class="!text-logo pb-4 !text-2xl">What we Check</p>
-			<div class="flex flex-row justify-evenly">
-				<ul>
-					<li>IP Info</li>
-					<li>SSL Chain</li>
-					<li>DNS Records</li>
-					<li>Cookies</li>
-					<li>Headers</li>
-				</ul>
-				<ul>
-					<li>Quality Metrics</li>
-					<li>Server Location</li>
-					<li>Associated Hosts</li>
-					<li>TXT Records</li>
-				</ul>
+		<section class="box bg-primary-dark mt-16 flex w-[50%] flex-col rounded-lg p-4">
+			<h2 class="!text-logo mb-4 !text-2xl">What we Check</h2>
+			<div class="grid grid-cols-2 gap-8">
+				{#each serviceChunks as chunk}
+					<ul class="space-y-2">
+						{#each chunk as service}
+							<li class="flex items-center">
+								<img class="mr-2 w-6" alt="Icon" src="data:image/svg+xml;base64,{service.svg}" />
+								{service.content}
+							</li>
+						{/each}
+					</ul>
+				{/each}
 			</div>
-		</div>
+		</section>
 	</div>
 {/if}
 
-<footer class="bg-secondary-dark sticky bottom-0 p-4 text-center">
-	<p>Licensed under MIT</p>
+<footer class="bg-primary-dark sticky bottom-0 p-4 text-center">
+	<p class="text-sm text-gray-400">Licensed under MIT</p>
 </footer>
