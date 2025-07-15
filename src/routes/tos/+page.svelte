@@ -105,8 +105,8 @@
 				8. Governing Law
 			</h2>
 			<p class="mb-4 text-gray-700 dark:text-gray-300">
-				These Terms shall be governed and construed in accordance with the laws of {env.PUBLIC_COMPANY_REGION}, without
-				regard to its conflict of law provisions.
+				These Terms shall be governed and construed in accordance with the laws of {env.PUBLIC_COMPANY_REGION},
+				without regard to its conflict of law provisions.
 			</p>
 
 			<h2 class="mt-8 mb-4 text-2xl font-semibold text-gray-700 dark:text-gray-200">

@@ -1,9 +1,9 @@
 <script lang="ts">
-	let { clasz = '' } : { clasz?: string } = $props();
+	let { clasz = '' }: { clasz?: string } = $props();
 </script>
 
 <svg
-	class="fill-none stroke-2 stroke-black dark:stroke-white {clasz}"
+	class="fill-none stroke-black stroke-2 dark:stroke-white {clasz}"
 	viewBox="0 0 24 24"
 	xmlns="http://www.w3.org/2000/svg"
 >
