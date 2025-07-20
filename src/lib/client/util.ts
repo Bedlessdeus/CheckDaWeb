@@ -9,3 +9,5 @@ export const chunkArray = <T>(array: T[], chunkSize: number): T[][] => {
 	}
 	return chunks;
 };
+
+export const URL_PATTERN = '^https:\\/\\/([a-zA-Z\\d\\-]{1,63}\\.){1,62}[a-zA-Z\\-]{1,63}$';

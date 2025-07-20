@@ -31,8 +31,7 @@
 	},
 	"dependencies": {
 		"canvas": "^3.1.1",
-		"tldts": "^7.0.9",
-		"zlib": "^1.0.5"
+		"tldts": "^7.0.9"
 	},
 	"engines": {
 		"node": ">=24.0.0"

@@ -22,7 +22,7 @@
 	});
 </script>
 
-<div class="box m-8 flex flex-row items-center justify-between rounded-2xl">
+<div class="box flex flex-row items-center justify-between bg-primary-dark mb-8">
 	<h1 class="pt-4 pl-4 text-center !text-6xl">
 		<a href="/" class="!text-logo hover:!text-primary-cont">CheckDaWeb</a>
 	</h1>
